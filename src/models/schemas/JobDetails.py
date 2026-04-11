@@ -1,5 +1,6 @@
+from typing import List, Literal, Optional
+
 from pydantic import BaseModel, Field
-from typing import Optional, List, Literal
 
 ExperienceLevel = Literal["Junior", "Mid-level", "Senior", "Executive", "Not Specified"]
 WorkModel = Literal["Remote", "On-site", "Hybrid", "Not Specified"]
