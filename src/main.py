@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 from core.config import get_config
+from utils.metrics import setup_metrics
 from routes import base_router, parser_router
 
 settings = get_config()
@@ -27,6 +28,8 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan,
 )
+
+setup_metrics(app, enabled=settings.ENABLE_METRICS)
 
 
 @app.exception_handler(Exception)

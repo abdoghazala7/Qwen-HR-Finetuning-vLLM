@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     
     PROJECT_NAME: str = "HR Data Parser API"
     VLLM_NGROK_URL: str
+    ENABLE_METRICS: bool = True
 
 @lru_cache
 def get_config() -> Settings:
