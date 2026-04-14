@@ -11,6 +11,7 @@ services:
       --workers ${WEB_CONCURRENCY:-2}"
     networks:
       - backend
+      - egress
     restart: unless-stopped
     env_file:
       - ./env/.env.app
@@ -36,7 +37,7 @@ services:
       - backend
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1/ || exit 1"]
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1/nginx-health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -84,6 +85,12 @@ services:
     networks:
       - backend
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:3000/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
 
   node-exporter:
     image: prom/node-exporter:v1.10.2
@@ -102,6 +109,12 @@ services:
     networks:
       - backend
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:9100/metrics || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
 networks:
   edge:
@@ -109,6 +122,8 @@ networks:
   backend:
     driver: bridge
     internal: true
+  egress:
+    driver: bridge
 
 volumes:
   prometheus_data:
