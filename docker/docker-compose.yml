@@ -11,7 +11,6 @@ services:
       --workers ${WEB_CONCURRENCY:-2}"
     networks:
       - backend
-      - egress
     restart: unless-stopped
     env_file:
       - ./env/.env.app
@@ -47,7 +46,7 @@ services:
     image: prom/prometheus:v3.9.1
     container_name: prometheus
     ports:
-      - "127.0.0.1:9090:9090"
+      - "9090:9090"
     volumes:
       - prometheus_data:/prometheus
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
@@ -74,7 +73,7 @@ services:
     image: grafana/grafana:12.3.0
     container_name: grafana
     ports:
-      - "127.0.0.1:3000:3000"
+      - "3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
     env_file:
@@ -120,9 +119,6 @@ networks:
   edge:
     driver: bridge
   backend:
-    driver: bridge
-    internal: true
-  egress:
     driver: bridge
 
 volumes:
