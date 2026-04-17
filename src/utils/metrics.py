@@ -308,6 +308,7 @@ def setup_metrics(
         should_group_status_codes=should_group_status_codes,
         should_ignore_untemplated=should_ignore_untemplated,
         should_respect_env_var=False,
+        should_instrument_requests_inprogress=False,
     )
     instrumentator.instrument(app).expose(app, endpoint=metrics_path, include_in_schema=False)
     return instrumentator

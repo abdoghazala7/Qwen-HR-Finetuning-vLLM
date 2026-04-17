@@ -1,9 +1,10 @@
 import logging
 from contextlib import asynccontextmanager
+import time
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 from core.config import get_config
-from utils.metrics import setup_metrics
+from utils.metrics import setup_metrics, track_in_progress, record_api_request
 from routes import base_router, parser_router
 
 settings = get_config()
@@ -30,6 +31,31 @@ app = FastAPI(
 )
 
 setup_metrics(app, enabled=settings.ENABLE_METRICS)
+
+@app.middleware("http")
+async def prometheus_custom_metrics_middleware(request: Request, call_next):
+    route = request.scope.get("route")
+    route_path = route.path if route else request.url.path
+    method = request.method
+    
+    with track_in_progress(route=route_path, method=method):
+        start_time = time.perf_counter() 
+        try:
+            response = await call_next(request)
+            status_code = response.status_code
+        except Exception:
+            status_code = 500
+            raise
+        finally:
+            duration = time.perf_counter() - start_time
+            record_api_request(
+                route=route_path,
+                method=method,
+                status_code=status_code,
+                duration_seconds=duration
+            )
+            
+    return response
 
 
 @app.exception_handler(Exception)
