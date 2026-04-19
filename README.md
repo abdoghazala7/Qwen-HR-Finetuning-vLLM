@@ -57,22 +57,22 @@ flowchart TD
     classDef obs fill:#f8d7da,stroke:#dc3545,stroke-width:2px;
 
     %% Client
-    User([User / Browser]):::client
+    User(["User / Browser"]):::client
 
     %% Local Infrastructure
     subgraph Local_Docker["🐳 Local Docker Environment (Microservices)"]
         direction TB
-        Nginx[Nginx Reverse Proxy\n(Port 80)]:::edge
-        Streamlit[Streamlit UI\n(Port 8501)]:::frontend
-        FastAPI[FastAPI Backend\n(Port 8000)]:::backend
-        Prometheus[Prometheus\n(Metrics Scraper)]:::obs
-        Grafana[Grafana\n(Dashboards)]:::obs
-        NodeExporter[Node Exporter\n(Host Metrics)]:::obs
+        Nginx["Nginx Reverse Proxy<br>(Port 80)"]:::edge
+        Streamlit["Streamlit UI<br>(Port 8501)"]:::frontend
+        FastAPI["FastAPI Backend<br>(Port 8000)"]:::backend
+        Prometheus["Prometheus<br>(Metrics Scraper)"]:::obs
+        Grafana["Grafana<br>(Dashboards)"]:::obs
+        NodeExporter["Node Exporter<br>(Host Metrics)"]:::obs
     end
 
     %% Remote GPU Infrastructure
     subgraph Remote_Cloud["☁️ Remote GPU Host (Google Colab)"]
-        vLLM[(vLLM Engine\nQwen2.5-1.5B + LoRA)]:::ai
+        vLLM[("vLLM Engine<br>Qwen2.5-1.5B + LoRA")]:::ai
     end
 
     %% Execution Flow
@@ -82,8 +82,8 @@ flowchart TD
     Streamlit -- REST API Calls --> FastAPI
 
     %% Remote Inference Bridge (ngrok)
-    FastAPI -- "Inference Requests\n(Secure ngrok Tunnel)" --> vLLM
-    vLLM -. "JSON Responses\n(ngrok Tunnel)" .-> FastAPI
+    FastAPI -- "Inference Requests<br>(Secure ngrok Tunnel)" --> vLLM
+    vLLM -. "JSON Responses<br>(ngrok Tunnel)" .-> FastAPI
 
     %% Observability Flow
     Prometheus -. Scrapes /metrics .-> FastAPI
