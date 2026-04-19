@@ -26,7 +26,11 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
+    description="API for parsing English job descriptions using vLLM",
     version="1.0.0",
+    docs_url="/api/docs",          # Swagger UI  
+    redoc_url="/api/redoc",        # ReDoc UI
+    openapi_url="/api/openapi.json", # JSON Schema 
     lifespan=lifespan,
 )
 

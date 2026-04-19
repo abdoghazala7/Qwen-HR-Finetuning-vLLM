@@ -21,6 +21,30 @@ services:
       retries: 3
       start_period: 10s
 
+  streamlit:
+    build:
+      context: ..
+      dockerfile: docker/streamlit/Dockerfile
+    container_name: streamlit
+    command: >
+      streamlit run app.py
+      --server.address=0.0.0.0
+      --server.port=8501
+      --server.headless=true
+    depends_on:
+      fastapi:
+        condition: service_healthy
+    networks:
+      - edge
+      - backend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=5)\""]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
   nginx:
     image: nginx:stable-alpine
     container_name: nginx
