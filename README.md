@@ -29,7 +29,7 @@ I maintain a fully configured **GitHub Codespace** environment for this project.
 At the core of this project is a specialized AI model trained to bridge the gap between complex unstructured English HR descriptions and structured, multilingual data requirements. 
 
 ### 1. Data Engineering & Synthesis Alliance
-High-quality outputs require high-quality data. I engineered a highly diverse, custom dataset of **385 complex HR records** by utilizing an alliance of state-of-the-art foundation models (Gemini Pro 3, ChatGPT 5.2, and Claude Sonnet 4.6). 
+High-quality outputs require high-quality data. I engineered a highly diverse, custom dataset of **385 complex HR records** by utilizing an alliance of state-of-the-art foundation models (Gemini Pro 3, ChatGPT 5, and Claude Sonnet 4.6). 
 *   **Data Split:** Enforced a strict 90% Training / 10% Validation split to continuously benchmark and prevent overfitting.
 *   **Custom Prompt Engineering Rules:** Programmed strict scraping/parsing rules within the training data, applying anti-missing anomaly algorithms. I ensured a contextual Arabic translation for soft metadata while **strictly maintaining English terminology for all Technical Stacks**.
 
@@ -168,26 +168,65 @@ Qwen-HR-Finetuning-vLLM/
 
 ---
 
-## 🚀 Getting Started / Local Setup
+# 🚀 Getting Started / Local Setup
 
-Assuming you have `docker` and `docker-compose` alongside an NVIDIA GPU capable of running the vLLM engine:
+This architecture is strategically designed to be cost-effective. You do **NOT** need a local GPU. The microservices run locally via Docker, while the heavy vLLM inference engine runs remotely on Google Colab, securely bridged via an ngrok tunnel.
 
-1. **Clone the deployment repository:**
-   ```bash
-   git clone https://github.com/abdoghazala7/Qwen-HR-Finetuning-vLLM.git
-   cd Qwen-HR-Finetuning-vLLM
-   ```
+---
 
-2. **Spin up the microservices architecture:**
-   ```bash
-   docker compose -f docker/docker-compose.yml up -d --build
-   ```
+## Step 1: Clone the Repository
 
-3. **Access the Application Services:**
+First, pull the project to your local machine to access the configuration files and notebooks:
+
+```bash
+git clone https://github.com/abdoghazala7/Qwen-HR-Finetuning-vLLM.git
+cd Qwen-HR-Finetuning-vLLM
+```
+
+---
+
+## Step 2: Provision the Remote AI Engine (Google Colab)
+
+Before starting the local Docker containers, you must spin up the remote inference server.
+
+- Open the `notebooks/vllm_colab_runner.ipynb` file in Google Colab.
+- Create a free account on ngrok and obtain your Auth Token.
+- Inside the notebook, locate the ngrok configuration cell and replace the placeholder with your token:
+
+```bash
+!ngrok config add-authtoken YOUR_TOKEN_HERE
+```
+
+- Run all cells. Once the vLLM server boots successfully, ngrok will output a public **Forwarding URL**  
+  (e.g., `https://<hash>.ngrok-free.app`). Copy this URL.
+
+---
+
+## Step 3: Initialize Environment Variables (.env)
+
+You must create your secure environment files before booting the system.
+
+- Navigate to the environment configuration directory:
+
+```bash
+docker/env/
+```
+
+- Here, you will find template files named `.env.example`. You must create your actual `.env` files based on these templates  
+  (e.g., copy `.env.app.example` and rename it to `.env.app`).
+
+- Open your newly created `.env.app` file and paste the ngrok URL you copied from Colab.  
+  This ensures the FastAPI backend knows exactly where to route inference requests:
+
+```env
+VLLM_API_BASE_URL=https://<your-hash>.ngrok-free.app/v1
+```
+
+ **Access the Application Services:**
    *   **Web UI (Streamlit):** `http://localhost/` (Routed through Nginx)
    *   **FastAPI Swagger Docs:** `http://localhost/api/docs`
    *   **Grafana Dashboards:** `http://localhost:3000`
    *   **Prometheus Metrics:** `http://localhost:9090`
 
 ---
-*Built with ❤️ by **Abdo Ghazala** | AI Engineer & ML Systems Builder.*
+*Built with by **Abdo Ghazala** | AI Engineer & ML Systems Builder.*
