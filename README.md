@@ -1,16 +1,15 @@
-<h1 align="center">Qwen-HR-Finetuning-vLLM: Enterprise AI Job Description Parser</h1>
+# 🚀 Qwen-HR-Finetuning-vLLM: Enterprise HR Parsing & MLOps Pipeline
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.11+-blue.svg?logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/Docker-Enabled-2496ED.svg?logo=docker&logoColor=white" alt="Docker">
-  <img src="https://img.shields.io/badge/FastAPI-009688.svg?logo=fastapi&logoColor=white" alt="FastAPI">
-  <img src="https://img.shields.io/badge/Streamlit-FF4B4B.svg?logo=streamlit&logoColor=white" alt="Streamlit">
-  <img src="https://img.shields.io/badge/vLLM-High_Performance-FFD43B.svg" alt="vLLM">
-  <img src="https://img.shields.io/badge/Qwen-2.5_1.5B-7F52FF.svg" alt="Qwen">
-</p>
+[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Docker](https://img.shields.io/badge/Docker-Microservices-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-High%20Performance-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-UI-FF4B4B.svg?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![vLLM](https://img.shields.io/badge/vLLM-Inference%20Engine-8A2BE2.svg?style=for-the-badge)](https://vllm.ai/)
+[![Qwen](https://img.shields.io/badge/Qwen-2.5%201.5B-4B0082.svg?style=for-the-badge)](https://github.com/QwenLM/Qwen2.5)
+[![Prometheus](https://img.shields.io/badge/Prometheus-Observability-E6522C.svg?style=for-the-badge&logo=prometheus&logoColor=white)](https://prometheus.io/)
+[![Grafana](https://img.shields.io/badge/Grafana-Dashboards-F46800.svg?style=for-the-badge&logo=grafana&logoColor=white)](https://grafana.com/)
 
-## 🚀 Overview
-**Qwen-HR-Finetuning-vLLM** is an enterprise-grade AI pipeline engineered to parse unstructured English job descriptions into structured, bilingual (English/Arabic) JSON data. Built from scratch to solve real-world recruitment bottlenecks, this scalable microservice architecture leverages state-of-the-art Supervised Fine-Tuning (SFT) and ultra-high-throughput vLLM inference deployed seamlessly via Docker.
+A production-ready, end-to-end Machine Learning Operations (MLOps) pipeline for structured, bilingual (English/Arabic) Job Description parsing. This project solves a real-world enterprise challenge: converting unstructured text into highly accurate JSON schemas using Supervised Fine-Tuning (SFT) and high-throughput vLLM serving.
 
 ---
 
@@ -21,95 +20,174 @@ Want to see this **Enterprise AI HR Parser** in action without setting up the fu
 I maintain a fully configured **GitHub Codespace** environment for this project. Since this is a resource-intensive microservices architecture running vLLM, the live environment is spun up on demand.
 
 > **Interested in a test drive or discussing the architecture?**
-> Please **[Contact Me via LinkedIn](https://www.linkedin.com/in/abdo-ghazala/)**, and I will provision a temporary public URL for you to explore the UI, Swagger API, and AI pipeline interactively.
+> Please **[Contact Me via LinkedIn](https://www.linkedin.com/in/abdo-ghazala/)**, and I will provision a temporary public URL for you to explore the UI, Swagger API, Grafana Dashboards, and AI pipeline interactively.
 
 ---
 
 ## 🧠 The Vision & ML Backstory
 
-Parsing complex, domain-specific job descriptions into reliable, strictly formatted JSON requires deep contextual understanding. Here is how I brought this vision to life from data synthesis to inference:
+At the core of this project is a specialized AI model trained to bridge the gap between complex unstructured English HR descriptions and structured, multilingual data requirements. 
 
-### **1. Data Engineering & Synthesis Alliance:**
-To overcome the lack of high-quality multilingual HR datasets, I engineered a bespoke dataset of **385 highly diverse HR records**. This was powered by a synthesis alliance using the industry's heaviest hitters: Gemini Pro 3, ChatGPT 5.2, and Claude Sonnet 4.6. 
-* **Data Splitting**: Carefully partitioned into 90% Training and 10% Validation to strictly prevent overfitting.
-* **Parsing Rules**: Enforced robust anti-missing algorithms, ensuring contextual Arabic translation of metadata while stringently preserving Technical Stacks in English, completely governed by strict Pydantic schemas.
+### 1. Data Engineering & Synthesis Alliance
+High-quality outputs require high-quality data. I engineered a highly diverse, custom dataset of **385 complex HR records** by utilizing an alliance of state-of-the-art foundation models (Gemini Pro 3, ChatGPT 5.2, and Claude Sonnet 4.6). 
+*   **Data Split:** Enforced a strict 90% Training / 10% Validation split to continuously benchmark and prevent overfitting.
+*   **Custom Prompt Engineering Rules:** Programmed strict scraping/parsing rules within the training data, applying anti-missing anomaly algorithms. I ensured a contextual Arabic translation for soft metadata while **strictly maintaining English terminology for all Technical Stacks**.
 
-### **2. Precision Model Fine-Tuning (SFT & LoRA):**
-* **Base Model**: `Qwen/Qwen2.5-1.5B-Instruct` was strategically chosen for its unparalleled capability to digest complex multilingual tasks while retaining a remarkably efficient parameter footprint.
-* **Framework & Technique**: Utilized **LLaMA Factory** for Supervised Fine-Tuning (SFT) utilizing Low-Rank Adaptation (LoRA) configured at `Rank=32`.
-* **The Edge**: The fine-tuned construct vastly outperformed a standard from-scratch Transformer baseline in both cross-lingual entity understanding and accuracy, demonstrating the profound leap enabled by Transfer Learning and targeted SFT.
-* **Weights Checkpoint**: Openly hosted on Hugging Face at `abdoghazala7/Jobs`.
+### 2. Model Fine-Tuning: SFT & LoRA
+*   **The Foundation:** `Qwen/Qwen2.5-1.5B-Instruct` was strategically selected due to its astonishing multilingual capabilities and efficient parameter size. 
+*   **Training Framework:** Leveraged **LLaMA Factory** for streamlined experimentation.
+*   **Optimization Details:** Conducted Supervised Fine-Tuning (SFT) via Low-Rank Adaptation (LoRA) using `Rank=32` to capture nuanced linguistic alignment without catastrophic forgetting.
+*   **The Results:** This fine-tuned LoRA artifact vastly outperformed from-scratch Transformer baselines in deep cross-lingual understanding and structural entity extraction.
+*   **Artifacts:** The resulting weights are hosted and publicly available on Hugging Face at `abdoghazala7/Jobs`.
 
 ---
 
-## 🏗️ Architecture Flow
+## 🏗️ Microservices Architecture & Internal Networking
+
+This repository implements a loosely coupled, highly observable microservices architecture isolated within custom Docker networks (`edge` and `backend`), enforcing strict security boundaries. 
 
 ```mermaid
 flowchart TD
-    A[User / Client] -->|HTTPS| B(Nginx Reverse Proxy)
-    B -->|Frontend Traffic| C[Streamlit UI]
-    B -->|API Traffic| D[FastAPI Backend]
-    
-    subgraph Internal Docker Network
-        C -->|Validates Input & Forwards| D
-        D -->|Processes Request| E[(vLLM Engine)]
-        E -. LoRA Weights .-> E
-        E -. Guided Decoding .-> E
+    %% Define styles
+    classDef client fill:#f9f9f9,stroke:#333,stroke-width:2px;
+    classDef edge fill:#d4edda,stroke:#28a745,stroke-width:2px;
+    classDef frontend fill:#ffeeba,stroke:#ffc107,stroke-width:2px;
+    classDef backend fill:#cce5ff,stroke:#007bff,stroke-width:2px;
+    classDef ai fill:#e2d9f3,stroke:#6f42c1,stroke-width:2px;
+    classDef obs fill:#f8d7da,stroke:#dc3545,stroke-width:2px;
+
+    %% Client
+    User([User / Browser]):::client
+
+    %% Local Infrastructure
+    subgraph Local_Docker["🐳 Local Docker Environment (Microservices)"]
+        direction TB
+        Nginx[Nginx Reverse Proxy\n(Port 80)]:::edge
+        Streamlit[Streamlit UI\n(Port 8501)]:::frontend
+        FastAPI[FastAPI Backend\n(Port 8000)]:::backend
+        Prometheus[Prometheus\n(Metrics Scraper)]:::obs
+        Grafana[Grafana\n(Dashboards)]:::obs
+        NodeExporter[Node Exporter\n(Host Metrics)]:::obs
     end
 
-    classDef proxy fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef ui fill:#ff9,stroke:#333,stroke-width:2px;
-    classDef api fill:#9f9,stroke:#333,stroke-width:2px;
-    classDef llm fill:#99f,stroke:#333,stroke-width:2px;
-    
-    class B proxy;
-    class C ui;
-    class D api;
-    class E llm;
+    %% Remote GPU Infrastructure
+    subgraph Remote_Cloud["☁️ Remote GPU Host (Google Colab)"]
+        vLLM[(vLLM Engine\nQwen2.5-1.5B + LoRA)]:::ai
+    end
+
+    %% Execution Flow
+    User -- HTTP Request --> Nginx
+    Nginx -- WebSocket / UI Traffic --> Streamlit
+    Nginx -- /api/ Routing --> FastAPI
+    Streamlit -- REST API Calls --> FastAPI
+
+    %% Remote Inference Bridge (ngrok)
+    FastAPI -- "Inference Requests\n(Secure ngrok Tunnel)" --> vLLM
+    vLLM -. "JSON Responses\n(ngrok Tunnel)" .-> FastAPI
+
+    %% Observability Flow
+    Prometheus -. Scrapes /metrics .-> FastAPI
+    Prometheus -. Scrapes System .-> NodeExporter
+    Grafana -. Queries Data .-> Prometheus
 ```
+
+### 🧩 Service Breakdown (`docker-compose.yml` Analysis)
+*   **`nginx`**: The edge reverse proxy. Enforces strict HTTP security headers (XSS block, Frame-Options DENY, strict Content-Security-Policy), drops payload bodies >2m, and routes `/api` directly to the backend while serving the UI on the root.
+*   **`streamlit`**: The user-facing presentation layer. Confined to the `edge` and `backend` network, relying on a health check of the backend before booting.
+*   **`fastapi`**: The asynchronous core controller. Acts as the intermediate processing block running on Uvicorn. Completely isolated from the internet (only accessible via Nginx reverse proxy), handling schema enforcement and parsing payloads.
+*   **`prometheus`**: Acts as the central metrics brain. Utilizing volume mounts for persistent TSDB storage, it polls FastAPI endpoints and Node Exporter.
+*   **`grafana`**: Connected directly to Prometheus for visualization. Persists dashboard configurations via `grafana_data` volume.
+*   **`node-exporter`**: Tracks deep host-level CPU/RAM metrics to monitor hardware health during VRAM-intensive inference tasks.
 
 ---
 
-## ⚡ Engineering Achievements (The vLLM Edge)
+### ☁️ Infrastructure & Cost Optimization (Colab + ngrok)
+Due to the high VRAM requirements of vLLM and to maintain a zero-cost infrastructure for Phase 1:
+- **Compute Host:** Leveraged **Google Colab's T4 GPUs** as a remote inference provider.
+- **Network Tunneling:** Utilized **ngrok** to create a secure, low-latency tunnel, exposing the internal vLLM OpenAI-compatible API to our Dockerized FastAPI backend.
+- **Impact:** This setup demonstrates a "Hacker's Mindset"—achieving high-performance inference and seamless microservice communication without the need for expensive dedicated cloud GPU instances.
 
-Migrating from baseline PyTorch/Transformers to the high-performance **vLLM** inference engine unlocked massive scalability and efficiency metrics:
+---
 
-* **Dynamic Adapter Serving**: Enabled `--enable-lora` to serve LoRA weights entirely on-the-fly without the need for static weight merging, saving massive storage and ensuring dynamic adaptability.
-* **Memory Management Masterclass**: Engineered utilizing **PagedAttention** (operating like OS virtual memory for GPU VRAM), strictly capping KV Cache memory utilization at a stable 85%.
-* **16x Throughput Explosion**: Scaled generation throughput from a native 48 tokens/sec to an astounding **772 tokens/sec** on a single T4 GPU.
-* **95% Latency Reduction**: Slashed average request latency from 19.8 seconds down to **0.90 seconds** under heavy concurrent load (rigorously load-tested with Locust simulating 20 concurrent HR users).
-* **Zero-Latency Guided Decoding**: Integrated **Outlines/Pydantic** directly at the inference engine level, guaranteeing 100% reliable structured JSON output mapping with absolutely zero imposed latency penalties.
+## ⚡ Engineering Achievements: The vLLM Edge
+
+Migrating from a standard PyTorch/Transformers pipeline to **vLLM** yielded massive production improvements, shifting the project from a prototype to an enterprise-grade engine.
+
+*   **Dynamic Adapter Serving:** Enabled `--enable-lora` to serve LoRA configurations concurrently on-the-fly without the overhead of permanently merging base Model weights.
+*   **Advanced Memory Management:** Harnessed **PagedAttention**, drastically reducing GPU memory fragmentation. Artificially capped VRAM utilization at 85% to ensure container stability during large batch bursts.
+*   **Exponential Throughput (16x):** Smashed inference bottlenecks, scaling output from 48 tokens/sec to an astonishing **772 tokens/sec** on a single T4 GPU.
+*   **Latency Collapse:** Subjected the system to concurrent load testing (Locust). Through optimization, average request latency plummeted by 95% (from 19.8s down to **0.90s**).
+*   **Guided Decoding (100% JSON Reliability):** Rather than hoping the LLM returns valid JSON, we integrated **Outlines / Pydantic** engine-level decoding. The tokenizer is mathematically constrained to only generate tokens valid against our strict HR JSON schema.
+
+---
+
+## 📊 Full Observability & MLOps Pipeline
+
+What separates a script from a subsystem is observability. The entire stack features native instrumentation:
+
+1.  **Metric Exposure:** The `fastapi` service utilizes custom middleware (`src/utils/metrics.py`) to expose latency, request rates, error codes, and token bandwidth endpoints.
+2.  **Telemetry Aggregation:** `Prometheus` continuously scrapes these `/metrics` at set intervals alongside `node-exporter` host data.
+3.  **Visual Intelligence:** A custom `Grafana` dashboard translates time-series Prometheus data into actionable intelligence. At a glance, infrastructure operators can visualize API health, concurrent request latency, and LLM scaling throughput, guaranteeing 24/7 reliability.
 
 ---
 
 ## 🛡️ Frontend, Validation & Security
 
-* **Strict Pydantic UI Alignment**: The frontend is not just a visual layer; it acts as an intelligent gateway that validates all user inputs directly against strict Pydantic models before engaging the LLM.
-* **Nginx Edge Security**: Deployed behind a production-grade Nginx reverse proxy armed with robust security headers, managing ingress traffic gracefully.
-* **Fortified Internal Routing**: Utilizing Docker's internal networking, direct exposure to the FastAPI backend and vLLM servers is restricted, ensuring attack surfaces are comprehensively limited and completely internal to the Docker network.
+Security and validation happen consistently across all vector points:
+*   **Edge Security:** The `nginx` config (`docker/nginx/default.conf`) hides server tokens and enforces a rigid `Content-Security-Policy`, nullifying XSS and framing attempts before they hit the Python stack.
+*   **Type Safety:** The entire data modeling pipeline is constructed over strictly typed **Pydantic Schemas** (`src/models/schemas`). 
+*   **Internal Routing Security:** Components communicate exclusively over internal Docker bridge networks (`backend` & `edge`). The AI engine and APIs are completely blind to the outside world, accessed only through Nginx port mapping constraints.
+
+---
+
+## 📂 Repository Structure
+
+```text
+Qwen-HR-Finetuning-vLLM/
+├── docker/                     # Infrastructure configuration and orchestration
+│   ├── app/                    # FastAPI backend Dockerfile
+│   ├── env/                    # Environment variables (.env.app, .env.grafana)
+│   ├── nginx/                  # Edge Reverse Proxy rules & security headers
+│   ├── prometheus/             # Prometheus scraping configurations
+│   ├── streamlit/              # Frontend Streamlit Dockerfile
+│   └── docker-compose.yml      # Master microservices topology map
+├── notebooks/                  # AI R&D, experimentation, and LLaMA Factory scripts
+│   ├── LLM_Fine_Tuning.ipynb   # Supervised Fine Tuning experiment logs
+│   └── vllm_colab_runner.ipynb # Remote Inference Bridge: Deploys vLLM on Google Colab with ngrok tunneling for cost-effective cloud hosting.
+├── src/                        # Core Application Source Code
+│   ├── controller/             # Business logic: Output cleaning and parsing services
+│   ├── core/                   # Application configs & strict environment parsers
+│   ├── frontend/               # Streamlit UI, Input forms, and component visualization
+│   ├── models/                 # Deep Pydantic schemas enforcing output data structures
+│   ├── routes/                 # FastAPI routers mapped to specific endpoints
+│   ├── utils/                  # MLOps instrumentation, middleware, and metrics
+│   ├── main.py                 # FastAPI Application entrypoint
+│   └── requirements.txt        # Backend dependencies 
+└── README.md                   # Documentation
+```
 
 ---
 
 ## 🚀 Getting Started / Local Setup
 
-If you wish to deploy the full stack locally (Requires Nvidia Docker Support & compatible GPU):
+Assuming you have `docker` and `docker-compose` alongside an NVIDIA GPU capable of running the vLLM engine:
 
-1. **Clone the Repository**
+1. **Clone the deployment repository:**
    ```bash
-   git clone [https://github.com/abdoghazala7/Qwen-HR-Finetuning-vLLM.git](https://github.com/abdoghazala7/Qwen-HR-Finetuning-vLLM.git)
+   git clone https://github.com/abdoghazala7/Qwen-HR-Finetuning-vLLM.git
    cd Qwen-HR-Finetuning-vLLM
-
-2. **Boot the Microservices Architecture**
-   Ensure Docker and Docker Compose are installed. Simply run:
-   ```bash
-   *Note: Ensure you have configured your `.env` files and have the Nvidia Container Toolkit installed for vLLM GPU acceleration.*
-   docker-compose up -d
    ```
-   *This command will pull necessary images, build the Nginx, Streamlit, FastAPI, and vLLM containers, and wire the internal container networks.*
 
-3. **Access the Stack**:
-   - **Streamlit Frontend (User UI):** `http://localhost/`
-   - **FastAPI Swagger (Developer Docs):** `http://localhost/api/docs`
+2. **Spin up the microservices architecture:**
+   ```bash
+   docker compose -f docker/docker-compose.yml up -d --build
+   ```
+
+3. **Access the Application Services:**
+   *   **Web UI (Streamlit):** `http://localhost/` (Routed through Nginx)
+   *   **FastAPI Swagger Docs:** `http://localhost/api/docs`
+   *   **Grafana Dashboards:** `http://localhost:3000`
+   *   **Prometheus Metrics:** `http://localhost:9090`
 
 ---
 *Built with ❤️ by **Abdo Ghazala** | AI Engineer & ML Systems Builder.*
